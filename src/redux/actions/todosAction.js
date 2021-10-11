@@ -3,13 +3,6 @@ import { GLOBALTYPES } from '../types';
 
 export const addTodo = (todo, user) => async (dispatch) => {
   try {
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     loading: true,
-    //   },
-    // });
-
     const res = await API.getTodos();
 
     let arr = [...res];
@@ -36,31 +29,26 @@ export const addTodo = (todo, user) => async (dispatch) => {
       payload: arr,
     });
 
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     success: res.data.message,
-    //   },
-    // });
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'success',
+        message: 'Задача успешно добавлена',
+      },
+    });
   } catch (error) {
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     error: error.response.data.message,
-    //   },
-    // });
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'warning',
+        message: error,
+      },
+    });
   }
 };
 
 export const getTodos = () => async (dispatch) => {
   try {
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     loading: true,
-    //   },
-    // });
-
     const res = await API.getTodos();
 
     dispatch({
@@ -68,12 +56,13 @@ export const getTodos = () => async (dispatch) => {
       payload: res,
     });
   } catch (error) {
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     error: error.response.data.message,
-    //   },
-    // });
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'warning',
+        message: error,
+      },
+    });
   }
 };
 
@@ -90,6 +79,12 @@ export const removeTodo = (todo) => async (dispatch) => {
       payload: newTodos,
     });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'warning',
+        message: error,
+      },
+    });
   }
 };

@@ -3,12 +3,6 @@ import { GLOBALTYPES } from '../types';
 
 export const auth = (formData) => async (dispatch) => {
   try {
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     loading: true,
-    //   },
-    // });
     const res = await API.getUsers();
     const filteredUser = res.filter(
       (user) => user.username === formData.username
@@ -25,31 +19,26 @@ export const auth = (formData) => async (dispatch) => {
       });
     }
 
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     success: res.data.message,
-    //   },
-    // });
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'success',
+        message: 'Вы успешно вошли',
+      },
+    });
   } catch (error) {
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     error: error.response.data.message,
-    //   },
-    // });
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'warning',
+        message: error,
+      },
+    });
   }
 };
 
 export const getUser = () => async (dispatch) => {
   try {
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     loading: true,
-    //   },
-    // });
-
     const user = JSON.parse(localStorage.getItem('user'));
 
     if (user) {
@@ -61,20 +50,14 @@ export const getUser = () => async (dispatch) => {
         },
       });
     }
-
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     success: res.data.message,
-    //   },
-    // });
   } catch (error) {
-    // dispatch({
-    //   type: GLOBALTYPES.ALERT,
-    //   payload: {
-    //     error: error.response.data.message,
-    //   },
-    // });
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'warning',
+        message: error,
+      },
+    });
   }
 };
 
@@ -85,5 +68,14 @@ export const logout = () => async (dispatch) => {
       isAuth: false,
     },
   });
+
   await localStorage.removeItem('user');
+
+  dispatch({
+    type: GLOBALTYPES.ALERT,
+    payload: {
+      status: 'success',
+      message: 'Вы успешно вышли',
+    },
+  });
 };

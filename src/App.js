@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import API from 'utils/api';
 import AppRouter from './AppRouter';
+import { Alert } from 'components';
 
 import './index.scss';
 
@@ -15,6 +17,7 @@ class App extends Component {
   render() {
     return (
       <div className="main">
+        <Alert />
         <AppRouter />
       </div>
     );
