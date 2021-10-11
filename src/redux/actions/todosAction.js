@@ -13,29 +13,22 @@ export const addTodo = (todo, user) => async (dispatch) => {
     const res = await API.getTodos();
 
     let arr = [...res];
-    arr.push({
+    let newTodo = {
       id: new Date().valueOf(),
       title: todo.title,
       description: todo.description,
       completed: false,
       date: new Date().toLocaleString(),
       userId: user.id,
-    });
+    };
+
+    arr.push(newTodo);
 
     if (res) {
-      localStorage.setItem('todos', JSON.stringify(arr));
+      await API.createTodos(arr);
     } else {
-      localStorage.setItem(
-        'todos',
-        JSON.stringify({
-          id: new Date().valueOf(),
-          title: todo.title,
-          description: todo.description,
-          completed: false,
-          date: new Date().toLocaleString(),
-          userId: user.id,
-        })
-      );
+      await API.createTodos(arr);
+      localStorage.setItem('todos', JSON.stringify(newTodo));
     }
 
     dispatch({
@@ -81,5 +74,22 @@ export const getTodos = () => async (dispatch) => {
     //     error: error.response.data.message,
     //   },
     // });
+  }
+};
+
+export const removeTodo = (todo) => async (dispatch) => {
+  try {
+    const res = await API.getTodos();
+    const newTodos = res.filter((newTodo) => newTodo.id !== todo.id);
+    console.log(newTodos);
+
+    await API.createTodos(newTodos);
+
+    dispatch({
+      type: GLOBALTYPES.ADD_TODO,
+      payload: newTodos,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

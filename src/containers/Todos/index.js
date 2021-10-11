@@ -3,7 +3,7 @@ import { Link, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Card, Button } from 'antd';
 
-import { addTodo, getTodos } from 'redux/actions/todosAction';
+import { addTodo, getTodos, removeTodo } from 'redux/actions/todosAction';
 
 import { TodoList } from 'components';
 import { RouteNames } from 'routes';
@@ -22,6 +22,7 @@ const mapDispatchToProps = (dispatch) => {
     handleFormSubmit: (todo, user) => dispatch(addTodo(todo, user)),
     getTodos: () => dispatch(getTodos()),
     handleLogout: () => dispatch(logout()),
+    handleRemoveTodo: (todo) => dispatch(removeTodo(todo)),
   };
 };
 
@@ -39,6 +40,14 @@ class TodosContainer extends Component {
     this.props.handleLogout();
     this.setState({ redirect: true });
   };
+
+  handleRemoveTodo = (todo) => {
+    this.props.handleRemoveTodo(todo);
+  };
+
+  // handleToggleTodoStatus = (todo) => {
+  //   dispatch(toggleTodoStatus(todo));
+  // };
 
   render() {
     return (
@@ -61,7 +70,7 @@ class TodosContainer extends Component {
             user={this.props.user}
             isAuth={this.props.isAuth}
             onFormSubmit={this.handleFormSubmit}
-            // onTodoRemoval={handleRemoveTodo}
+            onTodoRemove={this.handleRemoveTodo}
             // onTodoToggle={handleToggleTodoStatus}
           />
         </Card>

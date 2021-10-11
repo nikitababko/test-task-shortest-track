@@ -9,8 +9,8 @@ export default class API {
     return JSON.parse(localStorage.getItem('users'));
   }
 
-  static async createTodos() {
-    localStorage.setItem('todos', JSON.stringify(todos));
+  static async createTodos(newTodos) {
+    localStorage.setItem('todos', JSON.stringify(newTodos ? newTodos : todos));
   }
 
   static async getTodos() {

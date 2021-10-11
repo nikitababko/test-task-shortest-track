@@ -6,7 +6,7 @@ import './TodoItem.scss';
 
 class TodoItem extends Component {
   render() {
-    const { todo } = this.props;
+    const { todo, onTodoRemove } = this.props;
 
     return (
       <List.Item
@@ -27,9 +27,9 @@ class TodoItem extends Component {
           </Tooltip>,
           <Popconfirm
             title="Вы уверены, что хотите удалить задачу?"
-            // onConfirm={() => {
-            //   onTodoRemoval(todo);
-            // }}
+            onConfirm={() => {
+              onTodoRemove(todo);
+            }}
           >
             <Button className="remove-todo-button" type="primary" danger>
               X

@@ -7,7 +7,7 @@ import './TodoList.scss';
 
 class TodoList extends Component {
   render() {
-    const { todos, user } = this.props;
+    const { todos, user, onTodoRemove } = this.props;
 
     return (
       <div className="todo-form">
@@ -17,7 +17,13 @@ class TodoList extends Component {
           }}
           dataSource={todos.filter((todo) => todo.userId === user.id)}
           renderItem={(todo) =>
-            todo.userId === user.id && <TodoItem todo={todo} />
+            todo.userId === user.id && (
+              <TodoItem
+                todo={todo}
+                // onTodoToggle={onTodoToggle}
+                onTodoRemove={onTodoRemove}
+              />
+            )
           }
           pagination={{
             position: 'bottom',
