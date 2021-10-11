@@ -34,10 +34,10 @@ class AuthContainer extends Component {
     console.log(this.state);
 
     this.setState({
-      ['username']: '',
+      username: '',
     });
     this.setState({
-      ['password']: '',
+      password: '',
     });
 
     console.log(this.state);
