@@ -4,6 +4,7 @@ import { List, Empty } from 'antd';
 import { TodoItem } from 'components';
 
 import './TodoList.scss';
+import { TodoItemContainer } from 'containers';
 
 class TodoList extends Component {
   render() {
@@ -18,7 +19,7 @@ class TodoList extends Component {
           dataSource={todos.filter((todo) => todo.userId === user.id)}
           renderItem={(todo) =>
             todo.userId === user.id && (
-              <TodoItem
+              <TodoItemContainer
                 todo={todo}
                 // onTodoToggle={onTodoToggle}
                 onTodoRemove={onTodoRemove}

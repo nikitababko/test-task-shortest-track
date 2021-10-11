@@ -1,48 +1,45 @@
 import React, { Component } from 'react';
-import { Tooltip, Tag, List, Modal, Button, Popconfirm, Switch } from 'antd';
-import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
+import { List, Modal, Button, Popconfirm, Checkbox } from 'antd';
 
 import './TodoItem.scss';
 
 class TodoItem extends Component {
   render() {
-    const { todo, onTodoRemove } = this.props;
+    const {
+      todo,
+      onTodoRemove,
+      showModal,
+      isModalVisible,
+      handleOk,
+      handleCancel,
+      handleToggleTodoStatus,
+    } = this.props;
 
     return (
-      <List.Item
-        actions={[
-          <Tooltip
-          // title={
-          //   this.props.todo.completed
-          //     ? 'Mark as uncompleted'
-          //     : 'Mark as completed'
-          // }
-          >
-            <Switch
-              checkedChildren={<CheckOutlined />}
-              unCheckedChildren={<CloseOutlined />}
-              // onChange={() => onTodoToggle(todo)}
-              // defaultChecked={todo.completed}
-            />
-          </Tooltip>,
-          <Popconfirm
-            title="Вы уверены, что хотите удалить задачу?"
-            onConfirm={() => {
-              onTodoRemove(todo);
-            }}
-          >
-            <Button className="remove-todo-button" type="primary" danger>
-              X
-            </Button>
-          </Popconfirm>,
-        ]}
-        className="list-item"
-        key={todo.id}
-      >
-        <div className="todo-item">
+      <div className="ant-list-items__container">
+        <Checkbox
+          onChange={() => handleToggleTodoStatus(todo)}
+          defaultChecked={todo.completed}
+        />
+        <List.Item
+          actions={[
+            <Popconfirm
+              title="Вы уверены, что хотите удалить задачу?"
+              onConfirm={() => {
+                onTodoRemove(todo);
+              }}
+            >
+              <Button className="remove-todo-button" type="primary" danger>
+                X
+              </Button>
+            </Popconfirm>,
+          ]}
+          className="list-item"
+          key={todo.id}
+        >
           <Button
             type="primary"
-            onClick={this.props.showModal}
+            onClick={showModal}
             className="todo-tag"
             danger={todo.completed ? false : true}
           >
@@ -56,15 +53,15 @@ class TodoItem extends Component {
                 <span className="modal-date">{todo.date}</span>
               </>
             }
-            visible={this.props.isModalVisible}
-            onOk={this.props.handleOk}
-            onCancel={this.props.handleCancel}
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
             footer={null}
           >
             <p>{todo.description}</p>
           </Modal>
-        </div>
-      </List.Item>
+        </List.Item>
+      </div>
     );
   }
 }

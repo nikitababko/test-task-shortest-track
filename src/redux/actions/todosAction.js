@@ -66,6 +66,40 @@ export const getTodos = () => async (dispatch) => {
   }
 };
 
+export const toggleTodoStatus = (todo) => async (dispatch) => {
+  try {
+    const res = await API.getTodos();
+    const newTodos = res.map((newTodo) => {
+      return newTodo.id === todo.id
+        ? { ...newTodo, completed: !todo.completed }
+        : newTodo;
+    });
+
+    localStorage.setItem('todos', JSON.stringify(newTodos));
+
+    dispatch({
+      type: GLOBALTYPES.ADD_TODO,
+      payload: newTodos,
+    });
+
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'success',
+        message: 'Задача выполнена',
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'warning',
+        message: error,
+      },
+    });
+  }
+};
+
 export const removeTodo = (todo) => async (dispatch) => {
   try {
     const res = await API.getTodos();

@@ -27,10 +27,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class TodosContainer extends Component {
-  state = {
-    redirect: false,
-  };
-
   handleFormSubmit = (todo) => {
     this.props.handleFormSubmit(todo, this.props.user);
     this.props.getTodos();
@@ -38,22 +34,17 @@ class TodosContainer extends Component {
 
   handleLogout = () => {
     this.props.handleLogout();
-    this.setState({ redirect: true });
   };
 
   handleRemoveTodo = (todo) => {
     this.props.handleRemoveTodo(todo);
   };
 
-  // handleToggleTodoStatus = (todo) => {
-  //   dispatch(toggleTodoStatus(todo));
-  // };
-
   render() {
+    const { todos, user, isAuth } = this.props;
+
     return (
       <>
-        {this.state.redirect && <Redirect to="/auth" />}
-
         <Card
           title={
             <div className="row">
@@ -66,12 +57,11 @@ class TodosContainer extends Component {
           }
         >
           <TodoList
-            todos={this.props.todos}
-            user={this.props.user}
-            isAuth={this.props.isAuth}
+            todos={todos}
+            user={user}
+            isAuth={isAuth}
             onFormSubmit={this.handleFormSubmit}
             onTodoRemove={this.handleRemoveTodo}
-            // onTodoToggle={handleToggleTodoStatus}
           />
         </Card>
       </>

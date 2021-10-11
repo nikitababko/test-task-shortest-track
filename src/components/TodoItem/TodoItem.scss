@@ -1,10 +1,39 @@
-.ant-list-item:hover {
-  .ant-list-item-action {
-    opacity: 1;
-  }
-}
+$green: #52c41a;
 
-.ant-list-item-action {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+.ant-list-items {
+  &__container {
+    // display: flex;
+    // align-items: center;
+    position: relative;
+
+    .ant-checkbox-wrapper {
+      // margin-right: 12px;
+      position: absolute;
+      top: 31%;
+      left: -32px;
+    }
+  }
+
+  .ant-list-item:hover {
+    .ant-list-item-action {
+      opacity: 1;
+    }
+  }
+
+  .ant-list-item-action {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .todo-tag {
+    width: 400px;
+    text-align: left;
+
+    background-color: $green;
+    border-color: $green;
+
+    &:hover {
+      background-color: lighten($green, 4);
+    }
+  }
 }
