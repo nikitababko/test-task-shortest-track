@@ -5,10 +5,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { privateRoutes, publicRoutes, RouteNames } from './routes';
 import { getUser } from 'redux/actions/authAction';
 
-const mapStateToProps = (store) => {
-  // console.log(store);
+const mapStateToProps = (state) => {
   return {
-    isAuth: store.auth.isAuth,
+    isAuth: state.auth.isAuth,
   };
 };
 

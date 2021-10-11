@@ -1,0 +1,10 @@
+.ant-list-item:hover {
+  .ant-list-item-action {
+    opacity: 1;
+  }
+}
+
+.ant-list-item-action {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}

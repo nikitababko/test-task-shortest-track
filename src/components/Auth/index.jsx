@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Form, Button, Input } from 'antd';
 
@@ -25,7 +26,7 @@ class Auth extends Component {
   // };
 
   componentDidMount() {
-    API.createUsers();
+    this.props.history.push('/auth');
   }
 
   // handleChangeInput = (e) => {
@@ -65,7 +66,7 @@ class Auth extends Component {
             rules={[
               {
                 required: true,
-                message: 'Please input your username!',
+                message: 'Введите свой username!',
               },
             ]}
             // value={this.state.username}
@@ -80,7 +81,7 @@ class Auth extends Component {
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: 'Введите свой пароль!',
               },
             ]}
             // value={this.state.password}
@@ -105,4 +106,4 @@ class Auth extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Auth));

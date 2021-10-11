@@ -1,8 +1,14 @@
-import API from 'utils/api';
+import API from '../../utils/api';
 import { GLOBALTYPES } from '../types';
 
 export const auth = (formData) => async (dispatch) => {
   try {
+    // dispatch({
+    //   type: GLOBALTYPES.ALERT,
+    //   payload: {
+    //     loading: true,
+    //   },
+    // });
     const res = await API.getUsers();
     const filteredUser = res.filter(
       (user) => user.username === formData.username
@@ -15,16 +21,33 @@ export const auth = (formData) => async (dispatch) => {
         payload: filteredUser[0],
       });
     }
+
+    // dispatch({
+    //   type: GLOBALTYPES.ALERT,
+    //   payload: {
+    //     success: res.data.message,
+    //   },
+    // });
   } catch (error) {
-    console.log(error);
+    // dispatch({
+    //   type: GLOBALTYPES.ALERT,
+    //   payload: {
+    //     error: error.response.data.message,
+    //   },
+    // });
   }
 };
 
 export const getUser = () => async (dispatch) => {
   try {
-    const user = JSON.parse(localStorage.getItem('user'));
+    // dispatch({
+    //   type: GLOBALTYPES.ALERT,
+    //   payload: {
+    //     loading: true,
+    //   },
+    // });
 
-    console.log(user);
+    const user = JSON.parse(localStorage.getItem('user'));
 
     if (user) {
       dispatch({
@@ -34,7 +57,19 @@ export const getUser = () => async (dispatch) => {
         },
       });
     }
+
+    // dispatch({
+    //   type: GLOBALTYPES.ALERT,
+    //   payload: {
+    //     success: res.data.message,
+    //   },
+    // });
   } catch (error) {
-    console.log(error);
+    // dispatch({
+    //   type: GLOBALTYPES.ALERT,
+    //   payload: {
+    //     error: error.response.data.message,
+    //   },
+    // });
   }
 };
