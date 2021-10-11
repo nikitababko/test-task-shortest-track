@@ -12,45 +12,17 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class AuthContainer extends Component {
-  state = {
-    username: '',
-    password: '',
-  };
-
-  handleChangeInput = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
   componentDidMount() {
     this.props.history.push('/auth');
   }
 
-  handleSubmit = (values) => {
+  handleSubmit = (values, form) => {
     this.props.handleAuth(values);
-
-    console.log(this.state);
-
-    this.setState({
-      username: '',
-    });
-    this.setState({
-      password: '',
-    });
-
-    console.log(this.state);
+    form.resetFields();
   };
 
   render() {
-    return (
-      <Auth
-        handleChangeInput={this.handleChangeInput}
-        handleSubmit={this.handleSubmit}
-        state={this.state}
-      />
-    );
+    return <Auth handleSubmit={this.handleSubmit} state={this.state} />;
   }
 }
 
