@@ -8,8 +8,6 @@ export const auth = (formData) => async (dispatch) => {
       (user) => user.username === formData.username
     );
 
-    console.log(filteredUser);
-
     if (filteredUser.length > 0) {
       localStorage.setItem('user', JSON.stringify({ ...filteredUser[0] }));
       dispatch({

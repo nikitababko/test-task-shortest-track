@@ -3,14 +3,9 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Form, Button, Input } from 'antd';
 
-import './Auth.scss';
 import { auth } from 'redux/actions/authAction';
 
-const mapStateToProps = (store) => {
-  return {
-    isAuth: store.auth.isAuth,
-  };
-};
+import './Auth.scss';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -19,32 +14,40 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class Auth extends Component {
-  // state = {
-  //   username: '',
-  //   password: '',
-  // };
+  state = {
+    username: '',
+    password: '',
+  };
+
+  handleChangeInput = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+  formRef = React.createRef();
 
   componentDidMount() {
     this.props.history.push('/auth');
+    console.log(this.formRef.resetFields);
   }
-
-  // handleChangeInput = (e) => {
-  //   const { name, value } = e.target;
-  //   setUserData({ ...userData, [name]: value });
-  // };
 
   handleSubmit = (values) => {
     this.props.handleAuth(values);
-  };
+    // this.setState({});
 
-  handleSubmitFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    // this.setState((prevState, prevProps) => {
+    //   console.log(prevState);
+    //   return { username: '' };
+    // });
+    // console.log(this.state);
   };
 
   render() {
     return (
       <div className="auth">
         <Form
+          ref={this.formRef}
           name="basic"
           labelCol={{
             span: 8,
@@ -55,38 +58,45 @@ class Auth extends Component {
           initialValues={{
             remember: true,
           }}
-          onFinish={this.handleSubmit}
-          onFinishFailed={this.handleSubmitFailed}
+          onFinish={() => this.handleSubmit(this.state)}
           autoComplete="off"
         >
           <Form.Item
             label="Username"
             name="username"
+            value={this.state.username}
+            onChange={(e) => this.handleChangeInput(e)}
             rules={[
               {
                 required: true,
                 message: 'Введите свой username!',
               },
             ]}
-            // value={this.state.username}
-            // onChange={this.handleChangeInput}
           >
-            <Input />
+            <Input
+              name="username"
+              value={this.state.username}
+              onChange={(e) => this.handleChangeInput(e)}
+            />
           </Form.Item>
 
           <Form.Item
-            label="Password"
+            label="Пароль"
             name="password"
+            value={this.state.password}
+            onChange={(e) => this.handleChangeInput(e)}
             rules={[
               {
                 required: true,
                 message: 'Введите свой пароль!',
               },
             ]}
-            // value={this.state.password}
-            // onChange={this.handleChangeInput}
           >
-            <Input.Password />
+            <Input.Password
+              name="password"
+              value={this.state.password}
+              onChange={(e) => this.handleChangeInput(e)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -96,7 +106,7 @@ class Auth extends Component {
             }}
           >
             <Button type="primary" htmlType="submit">
-              Submit
+              Войти
             </Button>
           </Form.Item>
         </Form>
@@ -105,4 +115,4 @@ class Auth extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Auth));
+export default withRouter(connect(null, mapDispatchToProps)(Auth));

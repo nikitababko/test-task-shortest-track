@@ -34,10 +34,9 @@ class TodoItem extends Component {
           key={todo.id}
         >
           <Button
-            type="primary"
+            type="link"
             onClick={showModal}
-            className="todo-tag"
-            danger={todo.completed ? false : true}
+            className={`todo-tag ${todo.completed && 'cross'}`}
           >
             {todo.title}
           </Button>
@@ -50,7 +49,7 @@ class TodoItem extends Component {
           <Modal
             title={
               <>
-                <h3>{todo.title}</h3>{' '}
+                <h3>{todo.title}</h3>
                 <span className="modal-date">{todo.date}</span>
               </>
             }
