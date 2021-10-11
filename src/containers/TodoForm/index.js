@@ -20,13 +20,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class TodosContainer extends Component {
-  state = {
-    redirect: false,
-  };
-
   handleFormSubmit = (todo) => {
     this.props.handleFormSubmit(todo, this.props.user);
-    this.setState({ redirect: true });
     this.props.history.goBack();
   };
 

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { TodosContainer } from 'containers';
 import { getTodos } from 'redux/actions/todosAction';
 
+import './Home.scss';
+
 const mapStateToProps = (store) => {
   return {
     user: store.user,

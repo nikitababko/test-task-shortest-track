@@ -6,8 +6,8 @@ const authReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GLOBALTYPES.AUTH:
       return {
-        isAuth: true,
-        user: payload,
+        isAuth: payload.isAuth,
+        user: payload.user,
       };
 
     default:

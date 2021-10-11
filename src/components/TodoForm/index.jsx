@@ -9,10 +9,6 @@ class TodoForm extends Component {
     this.props.onFormSubmit(values);
   };
 
-  componentDidMount() {
-    console.log(this.props.onFormSubmit);
-  }
-
   render() {
     return (
       <div className="todo-form">
