@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { List, Empty } from 'antd';
 
-import { TodoItem } from 'components';
-
 import './TodoList.scss';
 import { TodoItemContainer } from 'containers';
 
@@ -24,7 +22,7 @@ class TodoList extends Component {
           }
           pagination={{
             position: 'bottom',
-            pageSize: 10,
+            pageSize: 5,
           }}
         />
       </div>

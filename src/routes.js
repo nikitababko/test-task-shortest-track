@@ -1,5 +1,4 @@
-import { TodoFormContainer } from 'containers';
-import { Auth } from './components';
+import { AuthContainer, TodoFormContainer } from 'containers';
 import { Home } from './components';
 
 export const RouteNames = {
@@ -10,9 +9,9 @@ export const RouteNames = {
 
 export const publicRoutes = [
   {
-    path: RouteNames.LOGIN,
+    path: RouteNames.AUTH,
     exact: true,
-    component: Auth,
+    component: AuthContainer,
   },
 ];
 
