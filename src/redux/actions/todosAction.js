@@ -17,6 +17,8 @@ export const addTodo = (todo, user) => async (dispatch) => {
 
     arr.push(newTodo);
 
+    arr.sort((a, b) => a.completed - b.completed);
+
     if (res) {
       await API.createTodos(arr);
     } else {
@@ -69,11 +71,13 @@ export const getTodos = () => async (dispatch) => {
 export const toggleTodoStatus = (todo) => async (dispatch) => {
   try {
     const res = await API.getTodos();
-    const newTodos = res.map((newTodo) => {
-      return newTodo.id === todo.id
-        ? { ...newTodo, completed: !todo.completed }
-        : newTodo;
-    });
+    const newTodos = res
+      .map((newTodo) => {
+        return newTodo.id === todo.id
+          ? { ...newTodo, completed: !todo.completed }
+          : newTodo;
+      })
+      .sort((a, b) => a.completed - b.completed);
 
     localStorage.setItem('todos', JSON.stringify(newTodos));
 
@@ -111,6 +115,14 @@ export const removeTodo = (todo) => async (dispatch) => {
     dispatch({
       type: GLOBALTYPES.ADD_TODO,
       payload: newTodos,
+    });
+
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        status: 'success',
+        message: 'Задача удалена',
+      },
     });
   } catch (error) {
     dispatch({

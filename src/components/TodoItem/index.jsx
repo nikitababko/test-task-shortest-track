@@ -17,10 +17,6 @@ class TodoItem extends Component {
 
     return (
       <div className="ant-list-items__container">
-        <Checkbox
-          onChange={() => handleToggleTodoStatus(todo)}
-          defaultChecked={todo.completed}
-        />
         <List.Item
           actions={[
             <Popconfirm
@@ -45,6 +41,11 @@ class TodoItem extends Component {
           >
             {todo.title}
           </Button>
+
+          <Checkbox
+            onChange={() => handleToggleTodoStatus(todo)}
+            defaultChecked={todo.completed}
+          />
 
           <Modal
             title={

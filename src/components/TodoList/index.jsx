@@ -19,11 +19,7 @@ class TodoList extends Component {
           dataSource={todos.filter((todo) => todo.userId === user.id)}
           renderItem={(todo) =>
             todo.userId === user.id && (
-              <TodoItemContainer
-                todo={todo}
-                // onTodoToggle={onTodoToggle}
-                onTodoRemove={onTodoRemove}
-              />
+              <TodoItemContainer todo={todo} onTodoRemove={onTodoRemove} />
             )
           }
           pagination={{
