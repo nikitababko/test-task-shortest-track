@@ -17,7 +17,7 @@ class Alert extends Component {
     }
 
     if (status === 'warning') {
-      notification.success({
+      notification.error({
         message: message,
       });
     }

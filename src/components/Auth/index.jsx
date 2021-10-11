@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Form, Button, Input } from 'antd';
 
 import './Auth.scss';
-import API from 'utils/api';
 import { auth } from 'redux/actions/authAction';
 
 const mapStateToProps = (store) => {

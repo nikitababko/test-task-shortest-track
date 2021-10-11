@@ -8,7 +8,9 @@ export const auth = (formData) => async (dispatch) => {
       (user) => user.username === formData.username
     );
 
-    if (filteredUser) {
+    console.log(filteredUser);
+
+    if (filteredUser.length > 0) {
       localStorage.setItem('user', JSON.stringify({ ...filteredUser[0] }));
       dispatch({
         type: GLOBALTYPES.AUTH,
@@ -17,15 +19,23 @@ export const auth = (formData) => async (dispatch) => {
           user: filteredUser[0],
         },
       });
-    }
 
-    dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: {
-        status: 'success',
-        message: 'Вы успешно вошли',
-      },
-    });
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {
+          status: 'success',
+          message: 'Вы успешно вошли',
+        },
+      });
+    } else {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {
+          status: 'warning',
+          message: 'Такого пользователя не существует',
+        },
+      });
+    }
   } catch (error) {
     dispatch({
       type: GLOBALTYPES.ALERT,
